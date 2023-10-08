@@ -2,6 +2,8 @@
 
 const input = require("readline-sync");
 
+let word = '';
+
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -19,22 +21,23 @@ function oldScrabbleScorer(word) {
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
- 
 		 if (oldPointStructure[pointValue].includes(word[i])) {
 			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
 		 }
- 
 	  }
 	}
 	return letterPoints;
- }
+}
 
-// your job is to finish writing these functions and variables that we've named //
-// don't change the names or your program won't work as expected. //
+//TODO: your job is to finish writing these functions and variables that we've named //
+//TODO: don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
-};
+   word = input.question("Let's play some Scrabble!\n\nEnter a word to score: ");
+   console.log(oldScrabbleScorer(word));
+   
+   return word;
+}
 
 let simpleScorer;
 
@@ -55,8 +58,8 @@ function runProgram() {
    
 }
 
-// Don't write any code below this line //
-// And don't change these or your program will not run as expected //
+//! Don't write any code below this line //
+//! And don't change these or your program will not run as expected //
 module.exports = {
    initialPrompt: initialPrompt,
    transform: transform,
