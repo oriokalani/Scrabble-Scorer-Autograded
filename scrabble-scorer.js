@@ -2,8 +2,6 @@
 
 const input = require("readline-sync");
 
-let word = '';
-
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -39,15 +37,60 @@ function initialPrompt() {
    return word;
 }
 
-let simpleScorer;
+let simpleScorer = function(word) {
+   return word.length;
+};
 
-let vowelBonusScorer;
+let vowelBonusScorer = function(word) {
+   let score = 0;
+   const vowels = ['A', 'E', 'I', 'O', 'U'];
+   for (let i = 0; i < word.length; i++) {
+      if (vowels.includes(word[i].toUpperCase())) {
+         score += 3;
+      } else {
+         score += 1;
+      }
+   }
+   return score;
+};
 
-let scrabbleScorer;
+let scrabbleScorer = function(word) {
+	word = word.toUpperCase();
+	let letterPoints = "";
+ 
+	for (let i = 0; i < word.length; i++) {
+ 
+	  for (const pointValue in oldPointStructure) {
+		 if (oldPointStructure[pointValue].includes(word[i])) {
+			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+		 }
+	  }
+	}
+	return letterPoints;
+}
 
-const scoringAlgorithms = [];
 
-function scorerPrompt() {}
+const scoringAlgorithms = [
+   {
+      name: 'Simple Score',
+      description: 'Each letter is worth 1 point.',
+      scoreFunction: simpleScorer
+   },
+   {
+      name: 'Bonus Vowels',
+      description: 'Vowels are 3 pts, consonants are 1 pt.',
+      scoreFunction: vowelBonusScorer
+   },
+   {
+      name: 'Scrabble',
+      description: 'The traditional scoring algorithm.',
+      scoreFunction: scrabbleScorer
+   }
+];
+
+function scorerPrompt() {
+   
+}
 
 function transform() {};
 
