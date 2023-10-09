@@ -56,19 +56,18 @@ let vowelBonusScorer = function(word) {
 
 let scrabbleScorer = function(word) {
 	word = word.toUpperCase();
-	let letterPoints = "";
+	let letterPoints = 0;
  
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
 		 if (oldPointStructure[pointValue].includes(word[i])) {
-			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+			letterPoints += Number(pointValue); //pointValue is a string, so I had to change the type to Number
 		 }
 	  }
 	}
 	return letterPoints;
-}
-
+};
 
 const scoringAlgorithms = [
    {
