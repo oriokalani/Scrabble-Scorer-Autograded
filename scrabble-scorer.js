@@ -59,7 +59,7 @@ let scrabbleScorer = function(word) {
 	let letterPoints = 0;
  
 	for (let i = 0; i < word.length; i++) {
- //! changed newPointStructure to oldPointStructure and it worked
+ //! changed newPointStructure to oldPointStructure and it worked. added code to push
 	  for (const pointValue in oldPointStructure) {
 		 if (oldPointStructure[pointValue].includes(word[i])) {
 			letterPoints += Number(pointValue); //pointValue is a string, so I had to change the type to Number
