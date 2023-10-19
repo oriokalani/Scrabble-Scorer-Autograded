@@ -59,7 +59,7 @@ let scrabbleScorer = function(word) {
 	let letterPoints = 0;
  
 	for (let i = 0; i < word.length; i++) {
- 
+ //! changed newPointStructure to oldPointStructure and it worked
 	  for (const pointValue in oldPointStructure) {
 		 if (oldPointStructure[pointValue].includes(word[i])) {
 			letterPoints += Number(pointValue); //pointValue is a string, so I had to change the type to Number
@@ -73,29 +73,39 @@ const scoringAlgorithms = [
    {
       name: 'Simple Score',
       description: 'Each letter is worth 1 point.',
-      scoreFunction: simpleScorer
+      scorerFunction: simpleScorer
    },
    {
       name: 'Bonus Vowels',
       description: 'Vowels are 3 pts, consonants are 1 pt.',
-      scoreFunction: vowelBonusScorer
+      scorerFunction: vowelBonusScorer
    },
    {
       name: 'Scrabble',
       description: 'The traditional scoring algorithm.',
-      scoreFunction: scrabbleScorer
+      scorerFunction: scrabbleScorer
    }
 ];
 
 function scorerPrompt() {
    let prompt = input.question("Which sorting algorithm would you like to use?\n\n0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system\nEnter 0, 1, or 2: ");
 
-   console.log(`Score for '${word}: ${scoringAlgorithms[prompt].scoreFunction(word)}`);
+   console.log(`Score for '${word}: ${scoringAlgorithms[prompt].scorerFunction(word)}`);
 }
 
-function transform() {};
+function transform(oldPointStructure) {
+   let newObject = {};
+   for (pointValue in oldPointStructure) {
+      for (let i = 0; i < oldPointStructure[pointValue].length; i ++) {
+         let letter = oldPointStructure[pointValue][i].toLowerCase();
 
-let newPointStructure;
+         newObject[letter] = Number(pointValue);
+      }
+   }
+   return newObject;
+};
+
+let newPointStructure = transform(oldPointStructure);
 
 function runProgram() {
    initialPrompt();
